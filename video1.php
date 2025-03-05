@@ -15,10 +15,20 @@ require_once 'core/init.php';
 //     echo $user->first()->username;
 // }
 
-$user = DB::getInstance() ->insert('users', array(
-    'username'=>'bolexy',
-    'password'=> 'password',
-    'salt' => 'salt'
+// $user = DB::getInstance() ->update('users',4, array(
+//     'password'=> 'Password',
+//     'name'  => 'ojumaribi',
+      
 
-)
-);
+// ));
+
+// if($user){
+//     echo "successful!!";
+// }
+
+if(Session::exists('home')){
+    echo '<p>'.Session::flash('home').'</p>';
+}
+// }else{
+//     echo $_SESSION['success'];
+// }

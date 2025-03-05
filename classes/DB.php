@@ -47,6 +47,7 @@ class DB {
         return $this;
 
     }
+    
     public function action($action, $table, $where = array()){
         if(count($where) === 3) {
             $operators = array('=', '>','<', '>=', '<=');
@@ -78,18 +79,49 @@ class DB {
     }
 
     public function insert($table, $fields = array()) {
-        if(count($fields)){
+        
             $keys = array_keys($fields);
-            $values = "~";
+            $values = "";
             $x =1;
 
             foreach($fields as $field) {
                 $values .= "?";
+                if($x < count($fields)){
+                    $values .=',';
+                }
+                $x++;
             }
+            
 
             $sql ="INSERT INTO users (`".implode('`,`',$keys) ."`) VALUES ({$values})";
 
-            echo $sql;
+            if(!$this->query($sql, $fields)->error()){
+                // echo "successful";
+                return true;
+
+            }
+
+        return false;
+
+    }
+
+    public function update($table, $id, $fields) {
+        $set = '';
+        $x = 1;
+
+        foreach($fields as $name => $value){
+            $set .="{$name} =?";
+            if($x < count($fields)){
+                $set .=', ';
+            }
+            $x++;
+        }
+        
+
+        $sql = "UPDATE {$table} SET {$set} WHERE id ={$id}";
+
+        if(!$this ->query($sql, $fields)->error()){
+            return true;
 
         }
         return false;
