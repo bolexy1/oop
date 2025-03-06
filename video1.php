@@ -29,6 +29,24 @@ require_once 'core/init.php';
 if(Session::exists('home')){
     echo '<p>'.Session::flash('home').'</p>';
 }
-// }else{
-//     echo $_SESSION['success'];
-// }
+
+
+$user = new User();
+
+
+if($user->isLoggedin()){
+    echo'<br>'.'Logged in !!';
+    ?>
+    
+    <p>Hello <a href="3"><?php echo escape($user->data()->username);?></a>!</p>
+    <ul>
+        <li><a href="logout.php">Log out</a></li>
+    </ul>
+    <?php
+    
+
+}else{
+    echo '<p> You need to <a href="login.php">Login</a> or <a href="register.php">register </a></p>';
+}
+
+// $another = new User(7);

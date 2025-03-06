@@ -1,11 +1,11 @@
 <?php
 require_once "core/init.php";
 
-//var_dump(Token::check(Input::get('token')));
+// var_dump(Hash::make("123456", "6364d3f0f495b6ab9dcf8d3b5c6e0b01"));
 
 
 if(Input::exists()){
-    if(!Token::check(Input::get('token'))){
+    if(Token::check(Input::get('token'))){
         // echo"please work";
             $validate = new Validate();
             $validation = $validate->check($_POST, array(
@@ -44,7 +44,8 @@ if(Input::exists()){
 
                 $user->create(array(
                     'username' => Input::get('username'),
-                    'password' => Hash::make(Input::get('password'),$salt),
+                    // 'password' => Hash::make(Input::get('password'),$salt),
+                    'password' => Hash::make(Input::get('password'),$salt),  
                     'salt' => $salt,
                     'name' => Input::get('name'),
                     'joined' => date('y-m-d H:i:s'),

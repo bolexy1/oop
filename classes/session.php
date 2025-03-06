@@ -1,7 +1,7 @@
 <?php
 class Session {
     public static function exists($name){
-        return (isset($_SEESSION[$name])) ? true :false;
+        return (isset($_SESSION[$name])) ? true :false;
 
     }
     public static function put($name,$value){
